@@ -5,3 +5,14 @@ Our experimental results demonstrate significant performance gains: ExCoT improv
 
 ### [Dataset Source](https://bird-bench.github.io)
 BIRD (BIg Bench for LaRge-scale Database Grounded Text-to-SQL Evaluation) represents a pioneering, cross-domain dataset that examines the impact of extensive database contents on text-to-SQL parsing. BIRD contains over 12,751 unique question-SQL pairs, 95 big databases with a total size of 33.4 GB. It also covers more than 37 professional domains, such as blockchain, hockey, healthcare and education, etc.
+### [Citations](https://arxiv.org/abs/2503.19988)
+@misc{zhai2025excotoptimizingreasoningtexttosql,
+      title={ExCoT: Optimizing Reasoning for Text-to-SQL with Execution Feedback}, 
+      author={Bohan Zhai and Canwen Xu and Yuxiong He and Zhewei Yao},
+      year={2025},
+      eprint={2503.19988},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2503.19988}, 
+}
+- Data provided by Arxiv API
