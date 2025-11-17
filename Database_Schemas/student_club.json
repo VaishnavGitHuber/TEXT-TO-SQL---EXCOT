@@ -1,0 +1,115 @@
+{
+  "database": "student_club",
+  "tables": [
+    {
+      "name": "zip_code",
+      "columns": {
+        "zip_code": "INT PRIMARY KEY",
+        "type": "VARCHAR(50)",
+        "city": "VARCHAR(100)",
+        "county": "VARCHAR(100)",
+        "state": "VARCHAR(100)",
+        "short_state": "VARCHAR(10)"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "major",
+      "columns": {
+        "major_id": "VARCHAR(50) PRIMARY KEY",
+        "major_name": "VARCHAR(100)",
+        "department": "VARCHAR(100)",
+        "college": "VARCHAR(100)"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "member",
+      "columns": {
+        "member_id": "VARCHAR(50) PRIMARY KEY",
+        "first_name": "VARCHAR(100)",
+        "last_name": "VARCHAR(100)",
+        "email": "VARCHAR(150)",
+        "position": "VARCHAR(100)",
+        "t_shirt_size": "VARCHAR(10)",
+        "phone": "VARCHAR(20)",
+        "zip": "INT",
+        "link_to_major": "VARCHAR(50)"
+      },
+      "foreign_keys": [
+        {"column": "link_to_major", "references": "major(major_id)"},
+        {"column": "zip", "references": "zip_code(zip_code)"}
+      ]
+    },
+    {
+      "name": "event",
+      "columns": {
+        "event_id": "VARCHAR(50) PRIMARY KEY",
+        "event_name": "VARCHAR(150)",
+        "event_date": "DATE",
+        "type": "VARCHAR(100)",
+        "notes": "TEXT",
+        "location": "VARCHAR(150)",
+        "status": "VARCHAR(50)"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "attendance",
+      "columns": {
+        "link_to_event": "VARCHAR(50)",
+        "link_to_member": "VARCHAR(50)"
+      },
+      "primary_key": ["link_to_event", "link_to_member"],
+      "foreign_keys": [
+        {"column": "link_to_event", "references": "event(event_id)"},
+        {"column": "link_to_member", "references": "member(member_id)"}
+      ]
+    },
+    {
+      "name": "budget",
+      "columns": {
+        "budget_id": "VARCHAR(50) PRIMARY KEY",
+        "category": "VARCHAR(100)",
+        "spent": "DECIMAL(10,2)",
+        "remaining": "DECIMAL(10,2)",
+        "amount": "DECIMAL(10,2)",
+        "event_status": "VARCHAR(50)",
+        "link_to_event": "VARCHAR(50)"
+      },
+      "foreign_keys": [
+        {"column": "link_to_event", "references": "event(event_id)"}
+      ]
+    },
+    {
+      "name": "expense",
+      "columns": {
+        "expense_id": "VARCHAR(50) PRIMARY KEY",
+        "expense_description": "TEXT",
+        "expense_date": "DATE",
+        "cost": "DECIMAL(10,2)",
+        "approved": "VARCHAR(10)",
+        "link_to_member": "VARCHAR(50)",
+        "link_to_budget": "VARCHAR(50)"
+      },
+      "foreign_keys": [
+        {"column": "link_to_budget", "references": "budget(budget_id)"},
+        {"column": "link_to_member", "references": "member(member_id)"}
+      ]
+    },
+    {
+      "name": "income",
+      "columns": {
+        "income_id": "VARCHAR(50) PRIMARY KEY",
+        "date_received": "DATE",
+        "amount": "DECIMAL(10,2)",
+        "source": "VARCHAR(150)",
+        "notes": "TEXT",
+        "link_to_member": "VARCHAR(50)"
+      },
+      "foreign_keys": [
+        {"column": "link_to_member", "references": "member(member_id)"}
+      ]
+    }
+  ]
+}

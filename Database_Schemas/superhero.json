@@ -1,0 +1,110 @@
+{
+  "database": "superhero",
+  "tables": [
+    {
+      "name": "alignment",
+      "columns": {
+        "id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "alignment": "VARCHAR(50) DEFAULT NULL"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "attribute",
+      "columns": {
+        "id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "attribute_name": "VARCHAR(100) DEFAULT NULL"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "colour",
+      "columns": {
+        "id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "colour": "VARCHAR(50) DEFAULT NULL"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "gender",
+      "columns": {
+        "id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "gender": "VARCHAR(50) DEFAULT NULL"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "publisher",
+      "columns": {
+        "id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "publisher_name": "VARCHAR(100) DEFAULT NULL"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "race",
+      "columns": {
+        "id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "race": "VARCHAR(100) DEFAULT NULL"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "superhero",
+      "columns": {
+        "id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "superhero_name": "VARCHAR(100) DEFAULT NULL",
+        "full_name": "VARCHAR(150) DEFAULT NULL",
+        "gender_id": "INT DEFAULT NULL",
+        "eye_colour_id": "INT DEFAULT NULL",
+        "hair_colour_id": "INT DEFAULT NULL",
+        "skin_colour_id": "INT DEFAULT NULL",
+        "race_id": "INT DEFAULT NULL",
+        "publisher_id": "INT DEFAULT NULL",
+        "alignment_id": "INT DEFAULT NULL",
+        "height_cm": "INT DEFAULT NULL",
+        "weight_kg": "INT DEFAULT NULL"
+      },
+      "foreign_keys": [
+        {"column": "alignment_id", "references": "alignment(id)"},
+        {"column": "eye_colour_id", "references": "colour(id)"},
+        {"column": "hair_colour_id", "references": "colour(id)"},
+        {"column": "skin_colour_id", "references": "colour(id)"},
+        {"column": "gender_id", "references": "gender(id)"},
+        {"column": "race_id", "references": "race(id)"},
+        {"column": "publisher_id", "references": "publisher(id)"}
+      ]
+    },
+    {
+      "name": "superpower",
+      "columns": {
+        "id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "power_name": "VARCHAR(100) DEFAULT NULL"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "hero_attribute",
+      "columns": {
+        "hero_id": "INT DEFAULT NULL",
+        "attribute_id": "INT DEFAULT NULL",
+        "attribute_value": "INT DEFAULT NULL"
+      },
+      "foreign_keys": [
+        {"column": "hero_id", "references": "superhero(id)"},
+        {"column": "attribute_id", "references": "attribute(id)"}
+      ]
+    },
+    {
+      "name": "hero_power",
+      "columns": {
+        "hero_id": "INT DEFAULT NULL",
+        "power_id": "INT DEFAULT NULL"
+      },
+      "foreign_keys": [
+        {"column": "hero_id", "references": "superhero(id)"},
+        {"column": "power_id", "references": "superpower(id)"}
+      ]
+    }
+  ]
+}

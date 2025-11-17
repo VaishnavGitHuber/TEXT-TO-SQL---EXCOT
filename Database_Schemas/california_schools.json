@@ -1,0 +1,150 @@
+{
+  "database_name": "california_schools",
+  "tables": [
+    {
+      "table_name": "schools",
+      "primary_key": ["CDSCode"],
+      "columns": [
+        {"name": "CDSCode", "type": "VARCHAR(20)", "nullable": false},
+        {"name": "NCESDist", "type": "VARCHAR(50)"},
+        {"name": "NCESSchool", "type": "VARCHAR(50)"},
+        {"name": "StatusType", "type": "VARCHAR(50)", "nullable": false},
+        {"name": "County", "type": "VARCHAR(100)", "nullable": false},
+        {"name": "District", "type": "VARCHAR(100)", "nullable": false},
+        {"name": "School", "type": "VARCHAR(150)"},
+        {"name": "Street", "type": "VARCHAR(150)"},
+        {"name": "StreetAbr", "type": "VARCHAR(20)"},
+        {"name": "City", "type": "VARCHAR(100)"},
+        {"name": "Zip", "type": "VARCHAR(10)"},
+        {"name": "State", "type": "VARCHAR(10)"},
+        {"name": "MailStreet", "type": "VARCHAR(150)"},
+        {"name": "MailStrAbr", "type": "VARCHAR(20)"},
+        {"name": "MailCity", "type": "VARCHAR(100)"},
+        {"name": "MailZip", "type": "VARCHAR(10)"},
+        {"name": "MailState", "type": "VARCHAR(10)"},
+        {"name": "Phone", "type": "VARCHAR(20)"},
+        {"name": "Ext", "type": "VARCHAR(10)"},
+        {"name": "Website", "type": "VARCHAR(255)"},
+        {"name": "OpenDate", "type": "DATE"},
+        {"name": "ClosedDate", "type": "DATE"},
+        {"name": "Charter", "type": "TINYINT(1)"},
+        {"name": "CharterNum", "type": "VARCHAR(20)"},
+        {"name": "FundingType", "type": "VARCHAR(50)"},
+        {"name": "DOC", "type": "VARCHAR(100)", "nullable": false},
+        {"name": "DOCType", "type": "VARCHAR(50)", "nullable": false},
+        {"name": "SOC", "type": "VARCHAR(100)"},
+        {"name": "SOCType", "type": "VARCHAR(50)"},
+        {"name": "EdOpsCode", "type": "VARCHAR(50)"},
+        {"name": "EdOpsName", "type": "VARCHAR(100)"},
+        {"name": "EILCode", "type": "VARCHAR(50)"},
+        {"name": "EILName", "type": "VARCHAR(100)"},
+        {"name": "GSoffered", "type": "VARCHAR(50)"},
+        {"name": "GSserved", "type": "VARCHAR(50)"},
+        {"name": "Virtual", "type": "VARCHAR(20)"},
+        {"name": "Magnet", "type": "TINYINT(1)"},
+        {"name": "Latitude", "type": "DECIMAL(10,6)"},
+        {"name": "Longitude", "type": "DECIMAL(10,6)"},
+        {"name": "AdmFName1", "type": "VARCHAR(100)"},
+        {"name": "AdmLName1", "type": "VARCHAR(100)"},
+        {"name": "AdmEmail1", "type": "VARCHAR(150)"},
+        {"name": "AdmFName2", "type": "VARCHAR(100)"},
+        {"name": "AdmLName2", "type": "VARCHAR(100)"},
+        {"name": "AdmEmail2", "type": "VARCHAR(150)"},
+        {"name": "AdmFName3", "type": "VARCHAR(100)"},
+        {"name": "AdmLName3", "type": "VARCHAR(100)"},
+        {"name": "AdmEmail3", "type": "VARCHAR(150)"},
+        {"name": "LastUpdate", "type": "DATE", "nullable": false}
+      ]
+    },
+    {
+      "table_name": "frpm",
+      "primary_key": ["CDSCode"],
+      "foreign_keys": [
+        {
+          "column": "CDSCode",
+          "references": {
+            "table": "schools",
+            "column": "CDSCode",
+            "on_delete": "CASCADE",
+            "on_update": "CASCADE"
+          }
+        }
+      ],
+      "columns": [
+        {"name": "CDSCode", "type": "VARCHAR(20)", "nullable": false},
+        {"name": "Academic Year", "type": "VARCHAR(20)"},
+        {"name": "County Code", "type": "VARCHAR(10)"},
+        {"name": "District Code", "type": "INT"},
+        {"name": "School Code", "type": "VARCHAR(10)"},
+        {"name": "County Name", "type": "VARCHAR(100)"},
+        {"name": "District Name", "type": "VARCHAR(150)"},
+        {"name": "School Name", "type": "VARCHAR(150)"},
+        {"name": "District Type", "type": "VARCHAR(50)"},
+        {"name": "School Type", "type": "VARCHAR(50)"},
+        {"name": "Educational Option Type", "type": "VARCHAR(100)"},
+        {"name": "NSLP Provision Status", "type": "VARCHAR(100)"},
+        {"name": "Charter School (Y/N)", "type": "TINYINT(1)"},
+        {"name": "Charter School Number", "type": "VARCHAR(20)"},
+        {"name": "Charter Funding Type", "type": "VARCHAR(50)"},
+        {"name": "IRC", "type": "INT"},
+        {"name": "Low Grade", "type": "VARCHAR(10)"},
+        {"name": "High Grade", "type": "VARCHAR(10)"},
+        {"name": "Enrollment (K-12)", "type": "DECIMAL(10,2)"},
+        {"name": "Free Meal Count (K-12)", "type": "DECIMAL(10,2)"},
+        {"name": "Percent (%) Eligible Free (K-12)", "type": "DECIMAL(5,2)"},
+        {"name": "FRPM Count (K-12)", "type": "DECIMAL(10,2)"},
+        {"name": "Percent (%) Eligible FRPM (K-12)", "type": "DECIMAL(5,2)"},
+        {"name": "Enrollment (Ages 5-17)", "type": "DECIMAL(10,2)"},
+        {"name": "Free Meal Count (Ages 5-17)", "type": "DECIMAL(10,2)"},
+        {"name": "Percent (%) Eligible Free (Ages 5-17)", "type": "DECIMAL(5,2)"},
+        {"name": "FRPM Count (Ages 5-17)", "type": "DECIMAL(10,2)"},
+        {"name": "Percent (%) Eligible FRPM (Ages 5-17)", "type": "DECIMAL(5,2)"},
+        {"name": "2013-14 CALPADS Fall 1 Certification Status", "type": "TINYINT(1)"}
+      ]
+    },
+    {
+      "table_name": "satscores",
+      "primary_key": ["cds"],
+      "foreign_keys": [
+        {
+          "column": "cds",
+          "references": {
+            "table": "schools",
+            "column": "CDSCode",
+            "on_delete": "CASCADE",
+            "on_update": "CASCADE"
+          }
+        }
+      ],
+      "columns": [
+        {"name": "cds", "type": "VARCHAR(20)", "nullable": false},
+        {"name": "rtype", "type": "VARCHAR(50)", "nullable": false},
+        {"name": "sname", "type": "VARCHAR(150)"},
+        {"name": "dname", "type": "VARCHAR(150)"},
+        {"name": "cname", "type": "VARCHAR(150)"},
+        {"name": "enroll12", "type": "INT", "nullable": false},
+        {"name": "NumTstTakr", "type": "INT", "nullable": false},
+        {"name": "AvgScrRead", "type": "INT"},
+        {"name": "AvgScrMath", "type": "INT"},
+        {"name": "AvgScrWrite", "type": "INT"},
+        {"name": "NumGE1500", "type": "INT"}
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from_table": "frpm",
+      "from_column": "CDSCode",
+      "to_table": "schools",
+      "to_column": "CDSCode",
+      "type": "many_to_one"
+    },
+    {
+      "from_table": "satscores",
+      "from_column": "cds",
+      "to_table": "schools",
+      "to_column": "CDSCode",
+      "type": "many_to_one"
+    }
+  ]
+}

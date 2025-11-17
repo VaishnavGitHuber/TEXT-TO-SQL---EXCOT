@@ -1,0 +1,250 @@
+{
+  "database_name": "card_games",
+  "tables": [
+    {
+      "table_name": "sets",
+      "primary_key": ["id"],
+      "unique_keys": ["code"],
+      "columns": [
+        {"name": "id", "type": "INT", "nullable": false},
+        {"name": "baseSetSize", "type": "INT"},
+        {"name": "block", "type": "VARCHAR(100)"},
+        {"name": "booster", "type": "TEXT"},
+        {"name": "code", "type": "VARCHAR(50)", "nullable": false},
+        {"name": "isFoilOnly", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isForeignOnly", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isNonFoilOnly", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isOnlineOnly", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isPartialPreview", "type": "TINYINT(1)", "nullable": false},
+        {"name": "keyruneCode", "type": "VARCHAR(50)"},
+        {"name": "mcmId", "type": "INT"},
+        {"name": "mcmIdExtras", "type": "INT"},
+        {"name": "mcmName", "type": "VARCHAR(100)"},
+        {"name": "mtgoCode", "type": "VARCHAR(50)"},
+        {"name": "name", "type": "VARCHAR(150)"},
+        {"name": "parentCode", "type": "VARCHAR(50)"},
+        {"name": "releaseDate", "type": "DATE"},
+        {"name": "tcgplayerGroupId", "type": "INT"},
+        {"name": "totalSetSize", "type": "INT"},
+        {"name": "type", "type": "VARCHAR(100)"}
+      ]
+    },
+    {
+      "table_name": "cards",
+      "primary_key": ["id"],
+      "unique_keys": ["uuid"],
+      "foreign_keys": [
+        {
+          "column": "setCode",
+          "references": {
+            "table": "sets",
+            "column": "code",
+            "on_update": "CASCADE",
+            "on_delete": "SET NULL"
+          }
+        }
+      ],
+      "columns": [
+        {"name": "id", "type": "INT", "nullable": false},
+        {"name": "artist", "type": "TEXT"},
+        {"name": "asciiName", "type": "TEXT"},
+        {"name": "availability", "type": "TEXT"},
+        {"name": "borderColor", "type": "TEXT"},
+        {"name": "cardKingdomFoilId", "type": "TEXT"},
+        {"name": "cardKingdomId", "type": "TEXT"},
+        {"name": "colorIdentity", "type": "TEXT"},
+        {"name": "colorIndicator", "type": "TEXT"},
+        {"name": "colors", "type": "TEXT"},
+        {"name": "convertedManaCost", "type": "DECIMAL(10,2)"},
+        {"name": "duelDeck", "type": "TEXT"},
+        {"name": "edhrecRank", "type": "INT"},
+        {"name": "faceConvertedManaCost", "type": "DECIMAL(10,2)"},
+        {"name": "faceName", "type": "TEXT"},
+        {"name": "flavorName", "type": "TEXT"},
+        {"name": "flavorText", "type": "TEXT"},
+        {"name": "frameEffects", "type": "TEXT"},
+        {"name": "frameVersion", "type": "TEXT"},
+        {"name": "hand", "type": "TEXT"},
+        {"name": "hasAlternativeDeckLimit", "type": "TINYINT(1)", "nullable": false},
+        {"name": "hasContentWarning", "type": "TINYINT(1)", "nullable": false},
+        {"name": "hasFoil", "type": "TINYINT(1)", "nullable": false},
+        {"name": "hasNonFoil", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isAlternative", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isFullArt", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isOnlineOnly", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isOversized", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isPromo", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isReprint", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isReserved", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isStarter", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isStorySpotlight", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isTextless", "type": "TINYINT(1)", "nullable": false},
+        {"name": "isTimeshifted", "type": "TINYINT(1)", "nullable": false},
+        {"name": "keywords", "type": "TEXT"},
+        {"name": "layout", "type": "TEXT"},
+        {"name": "leadershipSkills", "type": "TEXT"},
+        {"name": "life", "type": "TEXT"},
+        {"name": "loyalty", "type": "TEXT"},
+        {"name": "manaCost", "type": "TEXT"},
+        {"name": "mcmId", "type": "TEXT"},
+        {"name": "mcmMetaId", "type": "TEXT"},
+        {"name": "mtgArenaId", "type": "TEXT"},
+        {"name": "mtgjsonV4Id", "type": "TEXT"},
+        {"name": "mtgoFoilId", "type": "TEXT"},
+        {"name": "mtgoId", "type": "TEXT"},
+        {"name": "multiverseId", "type": "TEXT"},
+        {"name": "name", "type": "TEXT"},
+        {"name": "number", "type": "TEXT"},
+        {"name": "originalReleaseDate", "type": "DATE"},
+        {"name": "originalText", "type": "TEXT"},
+        {"name": "originalType", "type": "TEXT"},
+        {"name": "otherFaceIds", "type": "TEXT"},
+        {"name": "power", "type": "TEXT"},
+        {"name": "printings", "type": "TEXT"},
+        {"name": "promoTypes", "type": "TEXT"},
+        {"name": "purchaseUrls", "type": "TEXT"},
+        {"name": "rarity", "type": "TEXT"},
+        {"name": "scryfallId", "type": "TEXT"},
+        {"name": "scryfallIllustrationId", "type": "TEXT"},
+        {"name": "scryfallOracleId", "type": "TEXT"},
+        {"name": "setCode", "type": "VARCHAR(50)"},
+        {"name": "side", "type": "TEXT"},
+        {"name": "subtypes", "type": "TEXT"},
+        {"name": "supertypes", "type": "TEXT"},
+        {"name": "tcgplayerProductId", "type": "TEXT"},
+        {"name": "text", "type": "TEXT"},
+        {"name": "toughness", "type": "TEXT"},
+        {"name": "type", "type": "TEXT"},
+        {"name": "types", "type": "TEXT"},
+        {"name": "uuid", "type": "VARCHAR(100)", "nullable": false},
+        {"name": "variations", "type": "TEXT"},
+        {"name": "watermark", "type": "TEXT"}
+      ]
+    },
+    {
+      "table_name": "foreign_data",
+      "primary_key": ["id"],
+      "foreign_keys": [
+        {
+          "column": "uuid",
+          "references": {
+            "table": "cards",
+            "column": "uuid",
+            "on_update": "CASCADE",
+            "on_delete": "CASCADE"
+          }
+        }
+      ],
+      "columns": [
+        {"name": "id", "type": "INT", "nullable": false},
+        {"name": "flavorText", "type": "TEXT"},
+        {"name": "language", "type": "VARCHAR(50)"},
+        {"name": "multiverseid", "type": "INT"},
+        {"name": "name", "type": "TEXT"},
+        {"name": "text", "type": "TEXT"},
+        {"name": "type", "type": "TEXT"},
+        {"name": "uuid", "type": "VARCHAR(100)"}
+      ]
+    },
+    {
+      "table_name": "legalities",
+      "primary_key": ["id"],
+      "foreign_keys": [
+        {
+          "column": "uuid",
+          "references": {
+            "table": "cards",
+            "column": "uuid",
+            "on_update": "CASCADE",
+            "on_delete": "CASCADE"
+          }
+        }
+      ],
+      "columns": [
+        {"name": "id", "type": "INT", "nullable": false},
+        {"name": "format", "type": "VARCHAR(100)"},
+        {"name": "status", "type": "VARCHAR(50)"},
+        {"name": "uuid", "type": "VARCHAR(100)"}
+      ]
+    },
+    {
+      "table_name": "rulings",
+      "primary_key": ["id"],
+      "foreign_keys": [
+        {
+          "column": "uuid",
+          "references": {
+            "table": "cards",
+            "column": "uuid",
+            "on_update": "CASCADE",
+            "on_delete": "CASCADE"
+          }
+        }
+      ],
+      "columns": [
+        {"name": "id", "type": "INT", "nullable": false},
+        {"name": "date", "type": "DATE"},
+        {"name": "text", "type": "TEXT"},
+        {"name": "uuid", "type": "VARCHAR(100)"}
+      ]
+    },
+    {
+      "table_name": "set_translations",
+      "primary_key": ["id"],
+      "foreign_keys": [
+        {
+          "column": "setCode",
+          "references": {
+            "table": "sets",
+            "column": "code",
+            "on_update": "CASCADE",
+            "on_delete": "CASCADE"
+          }
+        }
+      ],
+      "columns": [
+        {"name": "id", "type": "INT", "nullable": false},
+        {"name": "language", "type": "VARCHAR(50)"},
+        {"name": "setCode", "type": "VARCHAR(50)"},
+        {"name": "translation", "type": "TEXT"}
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from_table": "cards",
+      "from_column": "setCode",
+      "to_table": "sets",
+      "to_column": "code",
+      "type": "many_to_one"
+    },
+    {
+      "from_table": "foreign_data",
+      "from_column": "uuid",
+      "to_table": "cards",
+      "to_column": "uuid",
+      "type": "many_to_one"
+    },
+    {
+      "from_table": "legalities",
+      "from_column": "uuid",
+      "to_table": "cards",
+      "to_column": "uuid",
+      "type": "many_to_one"
+    },
+    {
+      "from_table": "rulings",
+      "from_column": "uuid",
+      "to_table": "cards",
+      "to_column": "uuid",
+      "type": "many_to_one"
+    },
+    {
+      "from_table": "set_translations",
+      "from_column": "setCode",
+      "to_table": "sets",
+      "to_column": "code",
+      "type": "many_to_one"
+    }
+  ]
+}

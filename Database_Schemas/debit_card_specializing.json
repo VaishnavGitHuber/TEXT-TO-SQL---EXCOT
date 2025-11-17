@@ -1,0 +1,83 @@
+{
+  "database": "debit_card_specializing",
+  "tables": [
+    {
+      "name": "customers",
+      "columns": {
+        "CustomerID": "INT PRIMARY KEY AUTO_INCREMENT",
+        "Segment": "VARCHAR(100)",
+        "Currency": "VARCHAR(10)"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "gasstations",
+      "columns": {
+        "GasStationID": "INT PRIMARY KEY AUTO_INCREMENT",
+        "ChainID": "INT",
+        "Country": "VARCHAR(100)",
+        "Segment": "VARCHAR(100)"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "products",
+      "columns": {
+        "ProductID": "INT PRIMARY KEY AUTO_INCREMENT",
+        "Description": "TEXT"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "transactions_1k",
+      "columns": {
+        "TransactionID": "INT PRIMARY KEY AUTO_INCREMENT",
+        "Date": "DATE",
+        "Time": "TIME",
+        "CustomerID": "INT",
+        "CardID": "INT",
+        "GasStationID": "INT",
+        "ProductID": "INT",
+        "Amount": "INT",
+        "Price": "DECIMAL(10,2)"
+      },
+      "foreign_keys": [
+        {
+          "column": "CustomerID",
+          "references": "customers(CustomerID)",
+          "onDelete": "SET NULL",
+          "onUpdate": "CASCADE"
+        },
+        {
+          "column": "GasStationID",
+          "references": "gasstations(GasStationID)",
+          "onDelete": "SET NULL",
+          "onUpdate": "CASCADE"
+        },
+        {
+          "column": "ProductID",
+          "references": "products(ProductID)",
+          "onDelete": "SET NULL",
+          "onUpdate": "CASCADE"
+        }
+      ]
+    },
+    {
+      "name": "yearmonth",
+      "columns": {
+        "CustomerID": "INT",
+        "Date": "CHAR(7)",
+        "Consumption": "DECIMAL(10,2)"
+      },
+      "primary_key": ["Date", "CustomerID"],
+      "foreign_keys": [
+        {
+          "column": "CustomerID",
+          "references": "customers(CustomerID)",
+          "onDelete": "CASCADE",
+          "onUpdate": "CASCADE"
+        }
+      ]
+    }
+  ]
+}

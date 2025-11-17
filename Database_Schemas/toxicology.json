@@ -1,0 +1,52 @@
+{
+  "database": "toxicology",
+  "tables": [
+    {
+      "name": "molecule",
+      "columns": {
+        "molecule_id": "VARCHAR(64) NOT NULL",
+        "label": "VARCHAR(255) DEFAULT NULL"
+      },
+      "primary_key": ["molecule_id"],
+      "foreign_keys": []
+    },
+    {
+      "name": "atom",
+      "columns": {
+        "atom_id": "VARCHAR(64) NOT NULL",
+        "molecule_id": "VARCHAR(64) DEFAULT NULL",
+        "element": "VARCHAR(10) DEFAULT NULL"
+      },
+      "primary_key": ["atom_id"],
+      "foreign_keys": [
+        {"column": "molecule_id", "references": "molecule(molecule_id)", "on_update": "CASCADE", "on_delete": "SET NULL"}
+      ]
+    },
+    {
+      "name": "bond",
+      "columns": {
+        "bond_id": "VARCHAR(64) NOT NULL",
+        "molecule_id": "VARCHAR(64) DEFAULT NULL",
+        "bond_type": "VARCHAR(20) DEFAULT NULL"
+      },
+      "primary_key": ["bond_id"],
+      "foreign_keys": [
+        {"column": "molecule_id", "references": "molecule(molecule_id)", "on_update": "CASCADE", "on_delete": "SET NULL"}
+      ]
+    },
+    {
+      "name": "connected",
+      "columns": {
+        "atom_id": "VARCHAR(64) NOT NULL",
+        "atom_id2": "VARCHAR(64) NOT NULL",
+        "bond_id": "VARCHAR(64) DEFAULT NULL"
+      },
+      "primary_key": ["atom_id", "atom_id2"],
+      "foreign_keys": [
+        {"column": "atom_id", "references": "atom(atom_id)", "on_update": "CASCADE", "on_delete": "CASCADE"},
+        {"column": "atom_id2", "references": "atom(atom_id)", "on_update": "CASCADE", "on_delete": "CASCADE"},
+        {"column": "bond_id", "references": "bond(bond_id)", "on_update": "CASCADE", "on_delete": "CASCADE"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,206 @@
+{
+  "database": "formula_1",
+  "tables": [
+    {
+      "name": "seasons",
+      "columns": {
+        "year": "INT PRIMARY KEY",
+        "url": "VARCHAR(255) NOT NULL UNIQUE"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "circuits",
+      "columns": {
+        "circuitId": "INT PRIMARY KEY AUTO_INCREMENT",
+        "circuitRef": "VARCHAR(100) NOT NULL DEFAULT ''",
+        "name": "VARCHAR(255) NOT NULL DEFAULT ''",
+        "location": "VARCHAR(255)",
+        "country": "VARCHAR(100)",
+        "lat": "DECIMAL(10,6)",
+        "lng": "DECIMAL(10,6)",
+        "alt": "INT",
+        "url": "VARCHAR(255) NOT NULL UNIQUE"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "constructors",
+      "columns": {
+        "constructorId": "INT PRIMARY KEY AUTO_INCREMENT",
+        "constructorRef": "VARCHAR(100) NOT NULL DEFAULT ''",
+        "name": "VARCHAR(255) NOT NULL UNIQUE",
+        "nationality": "VARCHAR(100)",
+        "url": "VARCHAR(255) NOT NULL"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "drivers",
+      "columns": {
+        "driverId": "INT PRIMARY KEY AUTO_INCREMENT",
+        "driverRef": "VARCHAR(100) NOT NULL DEFAULT ''",
+        "number": "INT",
+        "code": "VARCHAR(10)",
+        "forename": "VARCHAR(100) NOT NULL DEFAULT ''",
+        "surname": "VARCHAR(100) NOT NULL DEFAULT ''",
+        "dob": "DATE",
+        "nationality": "VARCHAR(100)",
+        "url": "VARCHAR(255) NOT NULL UNIQUE"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "status",
+      "columns": {
+        "statusId": "INT PRIMARY KEY AUTO_INCREMENT",
+        "status": "VARCHAR(100) NOT NULL DEFAULT ''"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "races",
+      "columns": {
+        "raceId": "INT PRIMARY KEY AUTO_INCREMENT",
+        "year": "INT NOT NULL",
+        "round": "INT NOT NULL",
+        "circuitId": "INT NOT NULL",
+        "name": "VARCHAR(255) NOT NULL DEFAULT ''",
+        "date": "DATE NOT NULL DEFAULT '0000-00-00'",
+        "time": "VARCHAR(50)",
+        "url": "VARCHAR(255) UNIQUE"
+      },
+      "foreign_keys": [
+        {"column": "year", "references": "seasons(year)"},
+        {"column": "circuitId", "references": "circuits(circuitId)"}
+      ]
+    },
+    {
+      "name": "constructorResults",
+      "columns": {
+        "constructorResultsId": "INT PRIMARY KEY AUTO_INCREMENT",
+        "raceId": "INT NOT NULL",
+        "constructorId": "INT NOT NULL",
+        "points": "DECIMAL(10,2)",
+        "status": "VARCHAR(50)"
+      },
+      "foreign_keys": [
+        {"column": "raceId", "references": "races(raceId)"},
+        {"column": "constructorId", "references": "constructors(constructorId)"}
+      ]
+    },
+    {
+      "name": "constructorStandings",
+      "columns": {
+        "constructorStandingsId": "INT PRIMARY KEY AUTO_INCREMENT",
+        "raceId": "INT NOT NULL",
+        "constructorId": "INT NOT NULL",
+        "points": "DECIMAL(10,2) NOT NULL DEFAULT 0",
+        "position": "INT",
+        "positionText": "VARCHAR(10)",
+        "wins": "INT NOT NULL DEFAULT 0"
+      },
+      "foreign_keys": [
+        {"column": "raceId", "references": "races(raceId)"},
+        {"column": "constructorId", "references": "constructors(constructorId)"}
+      ]
+    },
+    {
+      "name": "driverStandings",
+      "columns": {
+        "driverStandingsId": "INT PRIMARY KEY AUTO_INCREMENT",
+        "raceId": "INT NOT NULL",
+        "driverId": "INT NOT NULL",
+        "points": "DECIMAL(10,2) NOT NULL DEFAULT 0",
+        "position": "INT",
+        "positionText": "VARCHAR(10)",
+        "wins": "INT NOT NULL DEFAULT 0"
+      },
+      "foreign_keys": [
+        {"column": "raceId", "references": "races(raceId)"},
+        {"column": "driverId", "references": "drivers(driverId)"}
+      ]
+    },
+    {
+      "name": "qualifying",
+      "columns": {
+        "qualifyId": "INT PRIMARY KEY AUTO_INCREMENT",
+        "raceId": "INT NOT NULL",
+        "driverId": "INT NOT NULL",
+        "constructorId": "INT NOT NULL",
+        "number": "INT NOT NULL DEFAULT 0",
+        "position": "INT",
+        "q1": "VARCHAR(20)",
+        "q2": "VARCHAR(20)",
+        "q3": "VARCHAR(20)"
+      },
+      "foreign_keys": [
+        {"column": "raceId", "references": "races(raceId)"},
+        {"column": "driverId", "references": "drivers(driverId)"},
+        {"column": "constructorId", "references": "constructors(constructorId)"}
+      ]
+    },
+    {
+      "name": "results",
+      "columns": {
+        "resultId": "INT PRIMARY KEY AUTO_INCREMENT",
+        "raceId": "INT NOT NULL",
+        "driverId": "INT NOT NULL",
+        "constructorId": "INT NOT NULL",
+        "number": "INT",
+        "grid": "INT NOT NULL DEFAULT 0",
+        "position": "INT",
+        "positionText": "VARCHAR(10) NOT NULL DEFAULT ''",
+        "positionOrder": "INT NOT NULL DEFAULT 0",
+        "points": "DECIMAL(10,2) NOT NULL DEFAULT 0",
+        "laps": "INT NOT NULL DEFAULT 0",
+        "time": "VARCHAR(50)",
+        "milliseconds": "INT",
+        "fastestLap": "INT",
+        "rank": "INT DEFAULT 0",
+        "fastestLapTime": "VARCHAR(20)",
+        "fastestLapSpeed": "VARCHAR(20)",
+        "statusId": "INT NOT NULL"
+      },
+      "foreign_keys": [
+        {"column": "raceId", "references": "races(raceId)"},
+        {"column": "driverId", "references": "drivers(driverId)"},
+        {"column": "constructorId", "references": "constructors(constructorId)"},
+        {"column": "statusId", "references": "status(statusId)"}
+      ]
+    },
+    {
+      "name": "lapTimes",
+      "columns": {
+        "raceId": "INT NOT NULL",
+        "driverId": "INT NOT NULL",
+        "lap": "INT NOT NULL",
+        "position": "INT",
+        "time": "VARCHAR(20)",
+        "milliseconds": "INT"
+      },
+      "primary_key": ["raceId", "driverId", "lap"],
+      "foreign_keys": [
+        {"column": "raceId", "references": "races(raceId)"},
+        {"column": "driverId", "references": "drivers(driverId)"}
+      ]
+    },
+    {
+      "name": "pitStops",
+      "columns": {
+        "raceId": "INT NOT NULL",
+        "driverId": "INT NOT NULL",
+        "stop": "INT NOT NULL",
+        "lap": "INT NOT NULL",
+        "time": "VARCHAR(20) NOT NULL",
+        "duration": "VARCHAR(20)",
+        "milliseconds": "INT"
+      },
+      "primary_key": ["raceId", "driverId", "stop"],
+      "foreign_keys": [
+        {"column": "raceId", "references": "races(raceId)"},
+        {"column": "driverId", "references": "drivers(driverId)"}
+      ]
+    }
+  ]
+}

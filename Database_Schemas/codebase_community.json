@@ -1,0 +1,145 @@
+{
+  "database": "codebase_community",
+  "tables": [
+    {
+      "name": "users",
+      "columns": {
+        "Id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "Reputation": "INT",
+        "CreationDate": "DATETIME",
+        "DisplayName": "VARCHAR(255)",
+        "LastAccessDate": "DATETIME",
+        "WebsiteUrl": "TEXT",
+        "Location": "TEXT",
+        "AboutMe": "TEXT",
+        "Views": "INT",
+        "UpVotes": "INT",
+        "DownVotes": "INT",
+        "AccountId": "INT",
+        "Age": "INT",
+        "ProfileImageUrl": "TEXT"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "posts",
+      "columns": {
+        "Id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "PostTypeId": "INT",
+        "AcceptedAnswerId": "INT",
+        "CreationDate": "DATETIME",
+        "Score": "INT",
+        "ViewCount": "INT",
+        "Body": "TEXT",
+        "OwnerUserId": "INT",
+        "LastActivityDate": "DATETIME",
+        "Title": "TEXT",
+        "Tags": "TEXT",
+        "AnswerCount": "INT",
+        "CommentCount": "INT",
+        "FavoriteCount": "INT",
+        "LastEditorUserId": "INT",
+        "LastEditDate": "DATETIME",
+        "CommunityOwnedDate": "DATETIME",
+        "ParentId": "INT",
+        "ClosedDate": "DATETIME",
+        "OwnerDisplayName": "VARCHAR(255)",
+        "LastEditorDisplayName": "VARCHAR(255)"
+      },
+      "foreign_keys": [
+        { "column": "LastEditorUserId", "references": "users(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" },
+        { "column": "OwnerUserId", "references": "users(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" },
+        { "column": "ParentId", "references": "posts(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" }
+      ]
+    },
+    {
+      "name": "comments",
+      "columns": {
+        "Id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "PostId": "INT",
+        "Score": "INT",
+        "Text": "TEXT",
+        "CreationDate": "DATETIME",
+        "UserId": "INT",
+        "UserDisplayName": "VARCHAR(255)"
+      },
+      "foreign_keys": [
+        { "column": "PostId", "references": "posts(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" },
+        { "column": "UserId", "references": "users(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" }
+      ]
+    },
+    {
+      "name": "postHistory",
+      "columns": {
+        "Id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "PostHistoryTypeId": "INT",
+        "PostId": "INT",
+        "RevisionGUID": "VARCHAR(255)",
+        "CreationDate": "DATETIME",
+        "UserId": "INT",
+        "Text": "TEXT",
+        "Comment": "TEXT",
+        "UserDisplayName": "VARCHAR(255)"
+      },
+      "foreign_keys": [
+        { "column": "PostId", "references": "posts(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" },
+        { "column": "UserId", "references": "users(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" }
+      ]
+    },
+    {
+      "name": "postLinks",
+      "columns": {
+        "Id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "CreationDate": "DATETIME",
+        "PostId": "INT",
+        "RelatedPostId": "INT",
+        "LinkTypeId": "INT"
+      },
+      "foreign_keys": [
+        { "column": "PostId", "references": "posts(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" },
+        { "column": "RelatedPostId", "references": "posts(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" }
+      ]
+    },
+    {
+      "name": "tags",
+      "columns": {
+        "Id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "TagName": "VARCHAR(255)",
+        "Count": "INT",
+        "ExcerptPostId": "INT",
+        "WikiPostId": "INT"
+      },
+      "foreign_keys": [
+        { "column": "ExcerptPostId", "references": "posts(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" },
+        { "column": "WikiPostId", "references": "posts(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" }
+      ]
+    },
+    {
+      "name": "badges",
+      "columns": {
+        "Id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "UserId": "INT",
+        "Name": "VARCHAR(255)",
+        "Date": "DATETIME"
+      },
+      "foreign_keys": [
+        { "column": "UserId", "references": "users(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" }
+      ]
+    },
+    {
+      "name": "votes",
+      "columns": {
+        "Id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "PostId": "INT",
+        "VoteTypeId": "INT",
+        "CreationDate": "DATETIME",
+        "UserId": "INT",
+        "BountyAmount": "INT"
+      },
+      "foreign_keys": [
+        { "column": "PostId", "references": "posts(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" },
+        { "column": "UserId", "references": "users(Id)", "onDelete": "CASCADE", "onUpdate": "CASCADE" }
+      ]
+    }
+  ]
+}

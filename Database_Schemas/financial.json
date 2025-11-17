@@ -1,0 +1,147 @@
+{
+  "database": "financial",
+  "tables": [
+    {
+      "name": "district",
+      "columns": {
+        "district_id": "INT PRIMARY KEY",
+        "A2": "VARCHAR(255) NOT NULL",
+        "A3": "VARCHAR(255) NOT NULL",
+        "A4": "VARCHAR(255) NOT NULL",
+        "A5": "VARCHAR(255) NOT NULL",
+        "A6": "VARCHAR(255) NOT NULL",
+        "A7": "VARCHAR(255) NOT NULL",
+        "A8": "INT NOT NULL",
+        "A9": "INT NOT NULL",
+        "A10": "DECIMAL(10,2) NOT NULL",
+        "A11": "INT NOT NULL",
+        "A12": "DECIMAL(10,2)",
+        "A13": "DECIMAL(10,2) NOT NULL",
+        "A14": "INT NOT NULL",
+        "A15": "INT",
+        "A16": "INT NOT NULL"
+      },
+      "foreign_keys": []
+    },
+    {
+      "name": "client",
+      "columns": {
+        "client_id": "INT PRIMARY KEY",
+        "gender": "VARCHAR(10) NOT NULL",
+        "birth_date": "DATE NOT NULL",
+        "district_id": "INT NOT NULL"
+      },
+      "foreign_keys": [
+        {
+          "column": "district_id",
+          "references": "district(district_id)"
+        }
+      ]
+    },
+    {
+      "name": "account",
+      "columns": {
+        "account_id": "INT PRIMARY KEY",
+        "district_id": "INT NOT NULL",
+        "frequency": "VARCHAR(50) NOT NULL",
+        "date": "DATE NOT NULL"
+      },
+      "foreign_keys": [
+        {
+          "column": "district_id",
+          "references": "district(district_id)"
+        }
+      ]
+    },
+    {
+      "name": "disp",
+      "columns": {
+        "disp_id": "INT PRIMARY KEY",
+        "client_id": "INT NOT NULL",
+        "account_id": "INT NOT NULL",
+        "type": "VARCHAR(50) NOT NULL"
+      },
+      "foreign_keys": [
+        {
+          "column": "client_id",
+          "references": "client(client_id)"
+        },
+        {
+          "column": "account_id",
+          "references": "account(account_id)"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "columns": {
+        "card_id": "INT PRIMARY KEY",
+        "disp_id": "INT NOT NULL",
+        "type": "VARCHAR(50) NOT NULL",
+        "issued": "DATE NOT NULL"
+      },
+      "foreign_keys": [
+        {
+          "column": "disp_id",
+          "references": "disp(disp_id)"
+        }
+      ]
+    },
+    {
+      "name": "loan",
+      "columns": {
+        "loan_id": "INT PRIMARY KEY",
+        "account_id": "INT NOT NULL",
+        "date": "DATE NOT NULL",
+        "amount": "INT NOT NULL",
+        "duration": "INT NOT NULL",
+        "payments": "DECIMAL(10,2) NOT NULL",
+        "status": "VARCHAR(10) NOT NULL"
+      },
+      "foreign_keys": [
+        {
+          "column": "account_id",
+          "references": "account(account_id)"
+        }
+      ]
+    },
+    {
+      "name": "order",
+      "columns": {
+        "order_id": "INT PRIMARY KEY",
+        "account_id": "INT NOT NULL",
+        "bank_to": "VARCHAR(50) NOT NULL",
+        "account_to": "INT NOT NULL",
+        "amount": "DECIMAL(10,2) NOT NULL",
+        "k_symbol": "VARCHAR(50) NOT NULL"
+      },
+      "foreign_keys": [
+        {
+          "column": "account_id",
+          "references": "account(account_id)"
+        }
+      ]
+    },
+    {
+      "name": "trans",
+      "columns": {
+        "trans_id": "INT PRIMARY KEY",
+        "account_id": "INT NOT NULL",
+        "date": "DATE NOT NULL",
+        "type": "VARCHAR(50) NOT NULL",
+        "operation": "VARCHAR(50)",
+        "amount": "DECIMAL(10,2) NOT NULL",
+        "balance": "DECIMAL(10,2) NOT NULL",
+        "k_symbol": "VARCHAR(50)",
+        "bank": "VARCHAR(50)",
+        "account": "INT"
+      },
+      "foreign_keys": [
+        {
+          "column": "account_id",
+          "references": "account(account_id)"
+        }
+      ]
+    }
+  ]
+}
